@@ -1,0 +1,150 @@
+echo "SRR list: $SRR_LIST"
+echo "FASTQ dir: $FASTQ_DIR"
+echo "Salmon index: $INDEX"
+echo "======================================"
+
+mkdir -p "$FASTQ_DIR" "$FASTQC_DIR" "$MULTIQC_DIR" "$SALMON_DIR" "$PROJECT_DIR/logs"
+
+if [[ ! -f "$SRR_LIST" ]]; then
+    echo "ERROR: SRR list not found: $SRR_LIST"
+    exit 1
+fi
+
+if [[ ! -d "$INDEX" ]]; then
+    echo "ERROR: Salmon index not found: $INDEX"
+    exit 1
+fi
+
+while IFS= read -r SRR || [[ -n "$SRR" ]]; do
+
+    SRR="${SRR//$'\r'/}"
+
+    if [[ -z "$SRR" ]]; then
+        continue
+    fi
+
+    echo "======================================"
+    echo "Processing sample: $SRR"
+    echo "======================================"
+
+    FQ1_FASTQ="$FASTQ_DIR/${SRR}_1.fastq"
+    FQ2_FASTQ="$FASTQ_DIR/${SRR}_2.fastq"
+    FQ1_GZ="$FASTQ_DIR/${SRR}_1.fastq.gz"
+    FQ2_GZ="$FASTQ_DIR/${SRR}_2.fastq.gz"
+
+    # Decide whether to use uncompressed or compressed FASTQ
+    if [[ -f "$FQ1_GZ" && -f "$FQ2_GZ" ]]; then
+        FQ1="$FQ1_GZ"
+        FQ2="$FQ2_GZ"
+        echo "Compressed FASTQ already exists for $SRR"
+    elif [[ -f "$FQ1_FASTQ" && -f "$FQ2_FASTQ" ]]; then
+        FQ1="$FQ1_FASTQ"
+        FQ2="$FQ2_FASTQ"
+        echo "Uncompressed FASTQ already exists for $SRR"
+    else
+        echo "FASTQ missing for $SRR"
+        echo "Downloading SRA with prefetch..."
+        cd "$PROJECT_DIR"
+        prefetch "$SRR"
+
+        echo "Converting SRA to paired FASTQ..."
+        fasterq-dump "$SRR" \
+            --split-files \
+            --threads "$THREADS_FASTQ" \
+            --outdir "$FASTQ_DIR"
+
+        FQ1="$FQ1_FASTQ"
+        FQ2="$FQ2_FASTQ"
+    fi
+
+    # FastQC
+    if [[ ! -f "$FASTQC_DIR/${SRR}_1_fastqc.zip" || ! -f "$FASTQC_DIR/${SRR}_2_fastqc.zip" ]]; then
+        echo "Running FastQC for $SRR..."
+        fastqc "$FQ1" "$FQ2" -o "$FASTQC_DIR"
+    else
+        echo "FastQC already exists for $SRR"
+    fi
+
+    # Salmon quantification
+    if [[ -f "$SALMON_DIR/$SRR/quant.sf" ]]; then
+        echo "Salmon quant already exists for $SRR. Skipping."
+    else
+        echo "Running Salmon quantification for $SRR..."
+        salmon quant \
+            -i "$INDEX" \
+            -l A \
+            -1 "$FQ1" \
+            -2 "$FQ2" \
+            -p "$THREADS_SALMON" \
+            -o "$SALMON_DIR/$SRR"
+    fi
+
+    # Compress FASTQs after successful QC + Salmon
+    if [[ -f "$FQ1_FASTQ" && -f "$FQ2_FASTQ" ]]; then
+        echo "Compressing FASTQ files for $SRR to save disk space..."
+        gzip "$FQ1_FASTQ" "$FQ2_FASTQ"
+    else
+        echo "FASTQ files already compressed for $SRR"
+    fi
+
+    # Remove SRA archive folders after successful processing
+    echo "Removing temporary SRA archive folders for $SRR if present..."
+    rm -rf "$PROJECT_DIR/$SRR" "$FASTQ_DIR/$SRR" "$PROJECT_DIR/data/raw_fastq/$SRR"
+
+    echo "DONE: $SRR"
+
+done < "$SRR_LIST"
+
+echo "======================================"
+echo "Running MultiQC summary..."
+multiqc "$FASTQC_DIR" -o "$MULTIQC_DIR" --force
+
+echo "ALL SAMPLES COMPLETED SUCCESSFULLY"
+EOF
+
+  688  bash -n scripts/run_salmon_batch.sh
+  689  echo "storage-safe script syntax OK"
+  690  bash scripts/run_salmon_batch.sh 2>&1 | tee logs/run_salmon_test_gzip.log
+  691  cd ~/Breast-Cancer-RNAseq-DE-Analysis
+  692  tail -n 20 logs/run_salmon_test_gzip.log
+  693  cd ~/Breast-Cancer-RNAseq-DE-Analysis
+  694  mkdir -p docs/logs
+  695  cat > docs/logs/2026-06-19_pipeline_checkpoint.md <<'EOF'
+# Project 2B checkpoint — 2026-06-19
+
+## Project
+Breast-Cancer-RNAseq-DE-Analysis
+
+## Biological comparison
+ER+ primary breast tumors vs TNBC primary breast tumors
+
+## Samples tested today
+- SRR1313090 = ER+ pilot sample
+- SRR1313132 = TNBC pilot sample
+
+## Completed today
+- Fixed DNS / SRA tools issue.
+- Confirmed rnaseq conda environment works.
+- Downloaded and converted SRR1313090 and SRR1313132.
+- Ran FastQC on both paired-end samples.
+- Generated MultiQC report.
+- Built and tested Salmon transcriptome quantification using GRCh38 Ensembl cDNA index.
+- Successfully quantified:
+  - results/salmon/SRR1313090/quant.sf
+  - results/salmon/SRR1313132/quant.sf
+- Built a storage-safe batch script:
+  - detects existing FASTQ
+  - detects .fastq.gz
+  - runs FastQC
+  - runs Salmon
+  - compresses FASTQ after successful processing
+  - removes temporary SRA folders
+- Compressed pilot FASTQs from ~45G to ~12G.
+- Confirmed project has ~345G free disk space after cleanup.
+
+## Current status
+2-sample pilot pipeline is successful.
+Do not run full 20-sample batch until script is switched from srr_test_list.txt to clean full SRR list.
+EOF
+
+  696  history | tail -n 150 > docs/logs/2026-06-19_terminal_history_tail.txt

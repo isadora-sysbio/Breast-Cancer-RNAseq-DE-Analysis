@@ -1,0 +1,8 @@
+
+# RNA-seq large raw/intermediate files
+results/fastq/
+*.fastq
+*.fastq.gz
+*.sra
+SRR*/
+data/raw_fastq/SRR*/
