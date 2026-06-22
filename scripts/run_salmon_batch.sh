@@ -4,7 +4,7 @@ set -euo pipefail
 PROJECT_DIR="$HOME/Breast-Cancer-RNAseq-DE-Analysis"
 
 # Test list first. Later we will switch this to metadata/srr_list_clean.txt.
-SRR_LIST="$PROJECT_DIR/metadata/srr_test_list.txt"
+SRR_LIST="$PROJECT_DIR/metadata/srr_list_clean.txt"
 
 FASTQ_DIR="$PROJECT_DIR/results/fastq"
 FASTQC_DIR="$PROJECT_DIR/results/fastqc"
