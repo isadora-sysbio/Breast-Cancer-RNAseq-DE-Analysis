@@ -6,3 +6,61 @@ results/fastq/
 *.sra
 SRR*/
 data/raw_fastq/SRR*/
+
+# Large raw sequencing files
+results/fastq/
+*.fastq
+*.fastq.gz
+*.sra
+SRR*/
+fasterq.tmp.*
+tmp/
+
+# Large references and indexes
+reference/*.fa
+reference/*.fasta
+reference/*.gtf
+reference/salmon_index/
+
+# Large intermediate quantification outputs
+results/salmon/
+
+# Local R objects/workspaces
+results/r_objects/
+.RData
+.Rhistory
+
+# Local data/backups/logs
+data/
+logs/
+project2B_backup*.tar.gz
+*.tar.gz
+
+# Large / intermediate results
+results/fastq/
+results/fastqc/
+results/multiqc/
+results/salmon/
+results/r_objects/
+
+# Large references
+reference/*.fa
+reference/*.fasta
+reference/*.gtf
+reference/salmon_index/
+
+# SRA / FASTQ / temp files
+*.sra
+*.fastq
+*.fastq.gz
+SRR*/
+fasterq.tmp.*
+tmp/
+
+# R local files
+.RData
+.Rhistory
+
+# Local backup files
+metadata/srr_list_old.txt
+rnaseq_environment_backup.yml
