@@ -10,7 +10,7 @@ This project represents an application of computational genomics approaches to t
 
 ---
 
-# Research Question
+## Research Question
 
 Which genes and biological pathways show differential expression between:
 
@@ -21,7 +21,7 @@ Understanding molecular differences between breast cancer subtypes may provide i
 
 ---
 
-# Biological Background
+## Biological Background
 
 Breast cancer is a heterogeneous disease composed of molecularly distinct subtypes with differences in:
 
@@ -34,32 +34,32 @@ ER-positive tumors frequently depend on estrogen receptor signaling, while TNBC 
 
 ---
 
-# Dataset
+## Dataset
 
 Publicly available human breast cancer RNA-seq data obtained from GEO.
 
 Study:
 
-GSE58135
+- GSE58135
 
 Cohort design:
 
-- 10 ER-positive breast cancer samples
-- 10 Triple-negative breast cancer samples
+- 10 ER-positive breast cancer primary tumor samples
+- 10 triple-negative breast cancer primary tumor samples
 
 Biological replicates were selected to enable differential expression analysis.
 
 ---
 
-# Workflow
+## Workflow
 
-## 1. Cohort Selection
+### 1. Cohort Selection
 
 - Identification of relevant GEO samples
 - Biological inclusion/exclusion criteria
 - Metadata organization
 
-## 2. RNA-seq Processing
+### 2. RNA-seq Processing
 
 Raw sequencing data processing:
 
@@ -67,56 +67,114 @@ FASTQ files
 
 ↓
 
-Quality Control
+Quality control
 
 ↓
 
-Transcript quantification
+Transcript quantification with Salmon
 
 ↓
 
 Gene-level expression matrix
 
-## 3. Differential Expression Analysis
+### 3. Differential Expression Analysis
 
 Statistical analysis using:
 
 - R
 - DESeq2
+- tximport
 
 Outputs:
 
 - Differentially expressed genes
 - Log2 fold changes
 - Adjusted p-values
-- Volcano plots
-- Heatmaps
+- PCA plot
+- Volcano plot
+- Heatmap of top differentially expressed genes
 
-## 4. Biological Interpretation
+### 4. Biological Interpretation
 
-Future analyses:
+Functional interpretation using:
 
-- Pathway enrichment
-- Functional annotation
-- Biological interpretation of significant genes
+- Direction-specific gene lists
+- GO Biological Process enrichment
+- Redundancy-reduced GO term summaries
 
 ---
 
-# Tools and Technologies
+## Differential Expression Direction
 
-## Programming
+The DESeq2 comparison was structured as:
+
+ER_pos vs TNBC
+
+Therefore:
+
+- Positive log2FoldChange = higher expression in ER_pos tumors
+- Negative log2FoldChange = higher expression in TNBC tumors
+
+---
+
+## Differential Expression Results
+
+Using an FDR cutoff of padj < 0.05:
+
+- Total significant DE genes: 3,674
+- Higher in ER_pos: 1,778
+- Higher in TNBC: 1,896
+
+Significant protein-coding DE genes:
+
+- Total: 3,280
+- Higher in ER_pos: 1,515
+- Higher in TNBC: 1,765
+
+---
+
+## GO Biological Process Enrichment
+
+After differential expression analysis, significant protein-coding DE genes were separated by direction:
+
+- ER_pos-up genes: 1,515
+- TNBC-up genes: 1,765
+
+GO Biological Process enrichment was performed separately for each direction-specific gene set using `clusterProfiler`, with the DESeq2-tested protein-coding genes used as the enrichment universe.
+
+### Main findings
+
+- ER_pos-up genes were enriched for biological processes related to hormone regulation, hormone transport/secretion, signal release, and cilium/microtubule-associated organization.
+- TNBC-up genes were enriched for mitotic division, nuclear division, chromosome segregation, sister chromatid segregation, organelle fission, and spindle/checkpoint-associated processes.
+
+GO redundancy reduction was performed using `clusterProfiler::simplify()` with a semantic similarity cutoff of 0.7.
+
+These results suggest that ER_pos-up genes reflect hormone/luminal-associated transcriptional programs, while TNBC-up genes show a strong proliferative/cell-cycle-associated transcriptional signature.
+
+These enrichment results indicate overrepresentation of GO terms among subtype-associated gene sets and do not prove causal pathway activation.
+
+---
+
+## Tools and Technologies
+
+### Programming
 
 - R
 - Bash/Linux
 
-## Bioinformatics
+### Bioinformatics
 
 - Salmon
+- tximport
 - DESeq2
+- clusterProfiler
+- org.Hs.eg.db
+- enrichplot
+- ggplot2
 - GEO/SRA resources
 - Bioconductor ecosystem
 
-## Data Management
+### Data Management
 
 - Git
 - GitHub
@@ -124,7 +182,7 @@ Future analyses:
 
 ---
 
-# Project Goals
+## Project Goals
 
 This project aims to build practical experience in:
 
@@ -132,25 +190,34 @@ This project aims to build practical experience in:
 - computational genomics
 - cancer biology
 - transcriptomic interpretation
+- pathway enrichment analysis
 - reproducible research workflows
 
 The long-term objective is to apply computational approaches to translational medicine and human genetics research.
 
 ---
 
-# Project Status
-
-🚧 Currently in development
+## Project Status
 
 Pipeline stages completed:
 
-✅ Biological question definition  
-✅ GEO cohort selection  
-✅ Metadata organization  
-✅ Computational environment setup  
+- Biological question definition
+- GEO cohort selection
+- Metadata organization
+- Computational environment setup
+- Salmon quantification
+- tximport gene-level import
+- DESeq2 differential expression analysis
+- PCA visualization
+- Volcano plot
+- Top DE gene heatmap
+- Direction-specific protein-coding gene lists
+- GO Biological Process enrichment
+- GO redundancy reduction
 
-Upcoming steps:
+Next planned steps:
 
-- RNA-seq quantification
-- Differential expression analysis
-- Biological interpretation
+- Add Reactome/pathway-level enrichment
+- Improve figure organization and captions
+- Expand biological interpretation
+- Prepare manuscript-style project summary
