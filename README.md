@@ -155,6 +155,57 @@ These enrichment results indicate overrepresentation of GO terms among subtype-a
 
 ---
 
+## Key Figures
+
+### PCA plot
+
+**File:** `figures/PCA_ER_pos_vs_TNBC.png`
+
+The PCA plot summarizes overall sample-level expression structure after variance-stabilizing transformation. It shows whether ER_pos and TNBC samples separate based on broad transcriptomic patterns. PCA is used for exploratory visualization and quality assessment, not for identifying individual significant genes.
+
+### Volcano plot
+
+**File:** `figures/Volcano_ER_pos_vs_TNBC.png`
+
+The volcano plot displays gene-level differential expression results from DESeq2. The x-axis represents log2 fold change, showing direction and magnitude of expression difference. The y-axis represents statistical significance. In this project, positive log2FoldChange indicates higher expression in ER_pos tumors, while negative log2FoldChange indicates higher expression in TNBC tumors.
+
+### Top DE gene heatmap
+
+**File:** `figures/Heatmap_top50_DE_genes_ER_pos_vs_TNBC.png`
+
+The heatmap shows scaled expression values for the top 50 differentially expressed genes ranked by adjusted p-value. Rows represent genes and columns represent samples. The heatmap provides visual support that the strongest differentially expressed genes separate ER_pos and TNBC tumors into subtype-associated expression patterns.
+
+### GO Biological Process dotplots
+
+**Files:**
+
+- `figures/GO_BP_dotplot_ER_pos_up_genes.png`
+- `figures/GO_BP_dotplot_TNBC_up_genes.png`
+- `figures/GO_BP_dotplot_ER_pos_up_genes_simplified.png`
+- `figures/GO_BP_dotplot_TNBC_up_genes_simplified.png`
+
+The GO dotplots summarize biological processes enriched among direction-specific gene sets. Dot position represents GeneRatio, dot size represents the number of genes in each GO term, and color represents adjusted p-value. Simplified dotplots reduce redundant GO terms and are used for clearer biological interpretation.
+
+---
+
+## Key Findings
+
+1. ER_pos and TNBC tumors show distinct transcriptomic profiles based on PCA, differential expression analysis, heatmap visualization, and pathway enrichment.
+
+2. DESeq2 identified 3,674 significant differentially expressed genes using an FDR cutoff of `padj < 0.05`.
+
+3. Among significant protein-coding genes, 1,515 were higher in ER_pos tumors and 1,765 were higher in TNBC tumors.
+
+4. ER_pos-up genes were enriched for hormone regulation, hormone transport/secretion, signal release, and cilium/microtubule-associated biological processes.
+
+5. TNBC-up genes were enriched for mitotic division, nuclear division, chromosome segregation, sister chromatid segregation, organelle fission, and spindle/checkpoint-associated biological processes.
+
+6. These results suggest that ER_pos tumors show hormone/luminal-associated transcriptional programs, while TNBC tumors show a stronger proliferative and cell-cycle-associated transcriptional signature.
+
+7. These findings are based on association from public RNA-seq data and pathway overrepresentation analysis. They do not prove causal pathway activation or direct treatment response.
+
+---
+
 ## Tools and Technologies
 
 ### Programming
