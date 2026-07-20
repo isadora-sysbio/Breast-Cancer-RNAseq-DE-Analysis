@@ -272,3 +272,53 @@ Next planned steps:
 - Improve figure organization and captions
 - Expand biological interpretation
 - Prepare manuscript-style project summary
+
+---
+
+## Reproducibility and Resume Instructions
+
+This project was run in a Conda environment named `rnaseq`.
+
+To resume the project locally:
+
+```bash
+conda activate rnaseq
+cd ~/Breast-Cancer-RNAseq-DE-Analysis
+```
+
+Main saved analysis objects are stored in:
+
+```text
+results/r_objects/
+```
+
+Main result tables are stored in:
+
+```text
+results/
+results/pathway_inputs/
+results/pathway_outputs/
+```
+
+Main figures are stored in:
+
+```text
+figures/
+```
+
+Key R objects include:
+
+- `dds_after_DESeq2.rds`
+- `res_annotated_ER_pos_vs_TNBC.rds`
+- `significant_protein_coding_DE_genes_FDR005_ER_pos_vs_TNBC.rds`
+- `ego_ER_pos_BP.rds`
+- `ego_TNBC_BP.rds`
+- `ego_ER_pos_BP_simplified.rds`
+- `ego_TNBC_BP_simplified.rds`
+
+The Conda environment files are included for reproducibility:
+
+- `rnaseq_environment.yml`
+- `rnaseq_conda_explicit.txt`
+
+Large raw sequencing files and reference/index files are not intended to be tracked directly in GitHub.
