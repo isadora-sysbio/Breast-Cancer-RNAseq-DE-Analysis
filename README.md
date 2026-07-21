@@ -322,3 +322,41 @@ The Conda environment files are included for reproducibility:
 - `rnaseq_conda_explicit.txt`
 
 Large raw sequencing files and reference/index files are not intended to be tracked directly in GitHub.
+
+---
+
+## Final Project Status
+
+Core analysis complete.
+
+This repository now contains a reproducible public RNA-seq analysis comparing ER-positive and triple-negative breast cancer tumors using Salmon quantification, tximport, DESeq2 differential expression analysis, visualization, and GO Biological Process enrichment.
+
+The project is considered portfolio-complete as an RNA-seq differential expression and pathway interpretation project.
+
+### Completed outputs
+
+- Curated cohort design: 10 ER_pos primary tumor samples and 10 TNBC primary tumor samples
+- Salmon transcript quantification
+- Gene-level import with tximport
+- DESeq2 differential expression analysis
+- PCA plot
+- Volcano plot
+- Top differentially expressed gene heatmap
+- Significant DE gene tables
+- Protein-coding filtered DE gene tables
+- Direction-specific ER_pos-up and TNBC-up gene lists
+- GO Biological Process enrichment
+- Simplified GO Biological Process dotplots
+- README documentation with biological interpretation and reproducibility notes
+
+### Limitations
+
+- This is a public-data reanalysis project and does not include experimental validation.
+- The analysis identifies transcriptomic associations, not causal mechanisms.
+- GO enrichment suggests overrepresented biological processes but does not prove pathway activation.
+- Clinical treatment response cannot be inferred directly from these RNA-seq results.
+- Future extensions could include Reactome enrichment, GSEA, validation in an independent cohort, or comparison with clinical metadata if available.
+
+### Portfolio interpretation
+
+This project demonstrates practical skills in RNA-seq analysis, differential expression, pathway enrichment, biological interpretation, Linux/R workflow management, and reproducible GitHub documentation.
