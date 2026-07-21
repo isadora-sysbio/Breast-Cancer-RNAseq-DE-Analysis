@@ -101,6 +101,7 @@ Functional interpretation using:
 - Direction-specific gene lists
 - GO Biological Process enrichment
 - Redundancy-reduced GO term summaries
+- Reactome pathway enrichment
 
 ---
 
@@ -219,6 +220,7 @@ The GO dotplots summarize biological processes enriched among direction-specific
 - tximport
 - DESeq2
 - clusterProfiler
+- ReactomePA
 - org.Hs.eg.db
 - enrichplot
 - ggplot2
@@ -369,7 +371,7 @@ This reinforces the proliferative and cell-cycle-associated transcriptional prog
 
 Core analysis complete.
 
-This repository now contains a reproducible public RNA-seq analysis comparing ER-positive and triple-negative breast cancer tumors using Salmon quantification, tximport, DESeq2 differential expression analysis, visualization, and GO Biological Process enrichment.
+This repository now contains a reproducible public RNA-seq analysis comparing ER-positive and triple-negative breast cancer tumors using Salmon quantification, tximport, DESeq2 differential expression analysis, visualization, GO Biological Process enrichment, and Reactome pathway enrichment.
 
 The project is considered portfolio-complete as an RNA-seq differential expression and pathway interpretation project.
 
@@ -387,6 +389,8 @@ The project is considered portfolio-complete as an RNA-seq differential expressi
 - Direction-specific ER_pos-up and TNBC-up gene lists
 - GO Biological Process enrichment
 - Simplified GO Biological Process dotplots
+- Reactome pathway enrichment
+- Reactome dotplots
 - README documentation with biological interpretation and reproducibility notes
 
 ### Limitations
