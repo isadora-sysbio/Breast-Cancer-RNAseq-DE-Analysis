@@ -267,13 +267,15 @@ Pipeline stages completed:
 - Direction-specific protein-coding gene lists
 - GO Biological Process enrichment
 - GO redundancy reduction
+- Reactome pathway enrichment
+- Reactome dotplot visualization
 
-Next planned steps:
+Future optional extensions:
 
-- Add Reactome/pathway-level enrichment
-- Improve figure organization and captions
-- Expand biological interpretation
-- Prepare manuscript-style project summary
+- GSEA
+- Independent cohort validation
+- Clinical metadata integration
+- Manuscript-style project summary
 
 ---
 
