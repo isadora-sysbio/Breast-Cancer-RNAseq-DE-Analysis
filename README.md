@@ -325,6 +325,46 @@ Large raw sequencing files and reference/index files are not intended to be trac
 
 ---
 
+## Reactome Pathway Enrichment
+
+As an optional pathway-level extension, Reactome pathway enrichment was performed separately for ER_pos-up and TNBC-up protein-coding genes.
+
+Reactome enrichment supported the main biological interpretation from GO Biological Process analysis.
+
+### ER_pos-up Reactome pathways
+
+ER_pos-up genes showed enrichment for mammary gland luminal epithelial lineage and estrogen-associated pathways, including:
+
+- Developmental Lineage of Mammary Gland Luminal Epithelial Cells
+- Developmental Lineages of the Mammary Gland
+- Developmental Lineage of Mammary Gland Alveolar Cells
+- Estrogen-dependent gene expression
+
+This supports a hormone/luminal-associated transcriptional program in ER_pos tumors.
+
+### TNBC-up Reactome pathways
+
+TNBC-up genes showed strong enrichment for cell-cycle and mitotic pathways, including:
+
+- Cell Cycle Checkpoints
+- Mitotic G1 phase and G1/S transition
+- G1/S Transition
+- Mitotic Metaphase and Anaphase
+- Mitotic Anaphase
+- Resolution of Sister Chromatid Cohesion
+- G2/M Checkpoints
+
+This reinforces the proliferative and cell-cycle-associated transcriptional program observed in TNBC tumors.
+
+### Reactome output files
+
+- `results/reactome_outputs/Reactome_enrichment_ER_pos_up_genes.csv`
+- `results/reactome_outputs/Reactome_enrichment_TNBC_up_genes.csv`
+- `figures/Reactome_dotplot_ER_pos_up_genes.png`
+- `figures/Reactome_dotplot_TNBC_up_genes.png`
+
+---
+
 ## Final Project Status
 
 Core analysis complete.
@@ -355,7 +395,7 @@ The project is considered portfolio-complete as an RNA-seq differential expressi
 - The analysis identifies transcriptomic associations, not causal mechanisms.
 - GO enrichment suggests overrepresented biological processes but does not prove pathway activation.
 - Clinical treatment response cannot be inferred directly from these RNA-seq results.
-- Future extensions could include Reactome enrichment, GSEA, validation in an independent cohort, or comparison with clinical metadata if available.
+- Future extensions could include GSEA, validation in an independent cohort, or comparison with clinical metadata if available.
 
 ### Portfolio interpretation
 
