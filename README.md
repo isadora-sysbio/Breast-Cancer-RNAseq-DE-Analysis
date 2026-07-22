@@ -406,3 +406,13 @@ The project is considered portfolio-complete as an RNA-seq differential expressi
 ### Portfolio interpretation
 
 This project demonstrates practical skills in RNA-seq analysis, differential expression, pathway enrichment, biological interpretation, Linux/R workflow management, and reproducible GitHub documentation.
+
+---
+
+## Reconstructed R Analysis Scripts
+
+Clean R scripts for the tximport/DESeq2, quality-control, differential-expression, GO Biological Process, and Reactome analyses are available in `scripts/`.
+
+These scripts were reconstructed from preserved R histories, session information, saved R objects, result tables, figures, and pipeline documentation. Historical outputs remain preserved as the primary research record, and the reconstructed scripts use overwrite protection by default.
+
+See `docs/reconstruction/README_RECONSTRUCTION.md` for reconstruction confidence levels, required inputs, validation targets, and safe rerunning instructions.
